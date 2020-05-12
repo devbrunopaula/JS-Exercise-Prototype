@@ -128,7 +128,7 @@ function Baby(name,age, favoriteToy) {
 
 
 console.dir(Baby)
-//  Baby.prototype = Object.create(Person.prototype)
+  Baby.prototype = Object.create(Person.prototype)
 
 Baby.prototype.play = function(){
   return `Playing with ${this.favoriteToy}` 
