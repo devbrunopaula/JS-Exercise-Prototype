@@ -39,9 +39,30 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+function Person(name, age) {
+  this.name = name
+  this.age = age
+  this.stomach = []
 
 }
+
+Person.prototype.eat = function(food) {
+   if( this.stomach.length < 10) {
+     this.stomach.push(food)
+   }
+}
+
+Person.prototype.poop = function() {
+  this.stomach = []
+}
+
+Person.prototype.toString = function() {
+  return `${this.name}, ${this.age}`
+}
+
+
+
+
 
 /*
   TASK 2
@@ -50,6 +71,7 @@ function Person() {
         + should initialize with an `tank` at 0
         + should initialize with an `odometer` at 0
     - Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
+    
     - STRETCH: Give cars ability to `.drive(distance)`. The distance driven:
         + Should cause the `odometer` to go up.
         + Should cause the the `tank` to go down taking `milesPerGallon` into account.
@@ -57,9 +79,40 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, mpg) {
+  this.model = model
+  this.milesPerGallon = mpg // 20
+  this.tank = 0  // 10
+  this.odometer = 0
 }
+
+Car.prototype.fill= function(gallons) {
+  this.tank += gallons
+}
+
+// STRETCH:
+
+
+	
+  Car.prototype.drive = function (distance) {
+	
+    let result = ''
+      if (this.tank < distance / this.milesPerGallon) {
+          this.odometer += this.tank * this.milesPerGallon
+          result = `I ran out of fuel at ${this.tank * this.milesPerGallon} miles!`
+          this.tank = 0
+
+      } else {
+        this.odometer += distance;
+        this.tank -= distance / this.milesPerGallon;
+        
+      }
+      
+      return result
+    };
+
+
+
 
 /*
   TASK 3
@@ -68,18 +121,33 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+function Baby(name,age, favoriteToy) {
+  this.favoriteToy = favoriteToy
+  Person.call(this, name, age)
 }
+
+
+console.dir(Baby)
+//  Baby.prototype = Object.create(Person.prototype)
+
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}` 
+  
+}
+
+
+
+
+
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Global / Window
+  2. Implicit
+  3. Explicit
+  4. New Bindng
 */
 
 
